@@ -1,314 +1,175 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Ethereum Decentralized Web Wallet</title>
-    <link rel="stylesheet" type="text/css" href="./style.css" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <title>Ethereum Decentralized Web Wallet</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
 
-  <body>
-    <!-- ================= ACCOUNT SCREEN ================= -->
-    <div class="centerer" id="screen-account">
-      <div class="centered">
-        <h1>Ethereum Wallet — Create / Import Account</h1>
-        <hr />
+<body>
 
-        <h2>Load Keystore File</h2>
-        <table>
-          <tr>
-            <th>Keystore:</th>
-            <td>
-              <div class="file" id="select-wallet-drop">
-                Drag JSON keystore file here
-              </div>
-              <input type="file" id="select-wallet-file" />
-            </td>
-          </tr>
-          <tr>
-            <th>Password:</th>
-            <td>
-              <input
-                type="password"
-                placeholder="(password)"
-                id="select-wallet-password"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <div id="select-submit-wallet" class="submit disable">
-                Decrypt Wallet
-              </div>
-            </td>
-          </tr>
-        </table>
-
-        <hr />
-
-        <h2>Import with Mnemonic</h2>
-        <table>
-          <tr>
-            <th>Mnemonic:</th>
-            <td>
-              <input
-                type="text"
-                placeholder="(mnemonic phrase)"
-                id="select-mnemonic-phrase"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>Derivation Path:</th>
-            <td>
-              <input
-                type="text"
-                id="select-mnemonic-path"
-                value="m/44'/60'/0'/0/0"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <div id="select-submit-mnemonic" class="submit">
-                Load Wallet
-              </div>
-            </td>
-          </tr>
-        </table>
-
-        <hr />
-
-        <h2>Import with Private Key</h2>
-        <table>
-          <tr>
-            <th>Private Key:</th>
-            <td>
-              <input
-                type="text"
-                placeholder="(private key)"
-                id="select-privatekey"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <div id="select-submit-privatekey" class="submit">
-                Load Private Key
-              </div>
-            </td>
-          </tr>
-        </table>
-
-        <hr />
-        <h3>Disclaimer</h3>
-        <p>
-          This is a demo wallet. Security and features are not complete.
-          <b>Use at your own risk.</b>
-        </p>
-      </div>
+<!-- ================= MODAL ================= -->
+<div id="modal-backdrop" class="modal-backdrop hidden">
+  <div class="modal">
+    <h2 id="modal-title"></h2>
+    <pre id="modal-content"></pre>
+    <input id="modal-input" class="hidden" />
+    <div class="modal-actions">
+      <button id="modal-cancel">Cancel</button>
+      <button id="modal-confirm" class="primary">Confirm</button>
     </div>
+  </div>
+</div>
 
-    <!-- ================= LOADING SCREEN ================= -->
-    <div class="centerer hidden" id="screen-loading">
-      <div class="centered">
-        <h1 id="loading-header"></h1>
-        <table>
-          <tr>
-            <th>Progress:</th>
-            <td>
-              <input
-                type="text"
-                readonly
-                class="readonly"
-                id="loading-status"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <div id="loading-cancel" class="submit">Cancel</div>
-            </td>
-          </tr>
-        </table>
+<!-- ================= ACCOUNT SCREEN ================= -->
+<div class="centerer" id="screen-account">
+  <div class="centered">
 
-        <hr />
-        <h3>Disclaimer</h3>
-        <p>
-          This is a demo wallet. Security and features are not complete.
-          <b>Use at your own risk.</b>
-        </p>
-      </div>
-    </div>
+    <h1>Ethereum Wallet</h1>
+    <hr>
 
-    <!-- ================= WALLET SCREEN ================= -->
-    <div class="centerer hidden" id="screen-wallet">
-      <div class="centered">
-        <h1>Ethereum Wallet</h1>
-        <hr />
+    <h2>Load Keystore File</h2>
+    <table>
+      <tr>
+        <th>Keystore:</th>
+        <td>
+          <div class="file-wrapper">
+            <div class="file" id="select-wallet-drop">Drag JSON keystore here</div>
+            <input type="file" id="select-wallet-file">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <th>Password:</th>
+        <td><input type="password" id="select-wallet-password"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><div id="select-submit-wallet" class="submit disable">Decrypt Wallet</div></td>
+      </tr>
+    </table>
 
-        <h3>Wallet Details</h3>
-        <table>
-          <tr>
-            <th>Address:</th>
-            <td>
-              <input
-                type="text"
-                readonly
-                class="readonly"
-                id="wallet-address"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>ETH Balance:</th>
-            <td>
-              <input
-                type="text"
-                readonly
-                class="readonly"
-                id="wallet-balance"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>Token Balance:</th>
-            <td>
-              <input
-                type="text"
-                readonly
-                class="readonly"
-                id="wallet-token-balance"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>Nonce:</th>
-            <td>
-              <input
-                type="text"
-                readonly
-                class="readonly"
-                id="wallet-transaction-count"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <div id="wallet-submit-refresh" class="submit">
-                Refresh
-              </div>
-            </td>
-          </tr>
-        </table>
+    <hr>
 
-        <h3>Send ETH</h3>
-        <table>
-          <tr>
-            <th>Recipient:</th>
-            <td>
-              <input
-                type="text"
-                placeholder="(recipient address)"
-                id="wallet-send-target-address"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>Amount (ETH):</th>
-            <td>
-              <input
-                type="text"
-                placeholder="(amount)"
-                id="wallet-send-amount"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <div id="wallet-submit-send" class="submit disable">
-                Send
-              </div>
-            </td>
-          </tr>
-        </table>
+    <h2>Import with Mnemonic</h2>
+    <table>
+      <tr>
+        <th>Mnemonic:</th>
+        <td><input type="text" id="select-mnemonic-phrase"></td>
+      </tr>
+      <tr>
+        <th>Derivation Path:</th>
+        <td><input type="text" id="select-mnemonic-path" value="m/44'/60'/0'/0/0"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><div id="select-submit-mnemonic" class="submit">Load Wallet</div></td>
+      </tr>
+    </table>
 
-        <h3>Send Token</h3>
-        <table>
-          <tr>
-            <th>Recipient:</th>
-            <td>
-              <input
-                type="text"
-                placeholder="(recipient address)"
-                id="wallet-token-send-target-address"
-              />
-            </td>
-          </tr>
-          <tr>
-            <th>Amount:</th>
-            <td>
-              <input
-                type="text"
-                placeholder="(amount)"
-                id="wallet-token-send-amount"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <div id="wallet-token-submit-send" class="submit disable">
-                Send Token
-              </div>
-            </td>
-          </tr>
-        </table>
+    <hr>
 
-        <h3>Export Keystore</h3>
-        <table>
-          <tr>
-            <th>Password:</th>
-            <td>
-              <input
-                type="text"
-                placeholder="(password)"
-                id="save-keystore-file-pwd"
-              />
-            </td>
-          </tr>
-          <tr>
-            <td></td>
-            <td>
-              <div id="save-keystore" class="submit">
-                Export
-              </div>
-            </td>
-          </tr>
-        </table>
+    <h2>Import with Private Key</h2>
+    <table>
+      <tr>
+        <th>Private Key:</th>
+        <td><input type="text" id="select-privatekey"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><div id="select-submit-privatekey" class="submit">Load Private Key</div></td>
+      </tr>
+    </table>
 
-        <h3>Transaction Activity</h3>
-        <div id="wallet-activity" class="activity"></div>
+  </div>
+</div>
 
-        <hr />
-        <h3>Disclaimer</h3>
-        <p>
-          This is a demo wallet. Security and features are not complete.
-          <b>Use at your own risk.</b>
-        </p>
-      </div>
-    </div>
+<!-- ================= LOADING SCREEN ================= -->
+<div class="centerer hidden" id="screen-loading">
+  <div class="centered">
+    <h1 id="loading-header">Loading</h1>
+    <input id="loading-status" readonly>
+    <div id="loading-cancel" class="submit">Cancel</div>
+  </div>
+</div>
 
-    <!-- ================= SCRIPTS ================= -->
-    <script src="ethers-v4.min.js"></script>
-    <script src="jquery.min.js"></script>
-    <script src="page.js"></script>
-    <script src="FileSaver.js"></script>
-    <script src="app.js"></script>
-  </body>
+<!-- ================= WALLET SCREEN ================= -->
+<div class="centerer hidden" id="screen-wallet">
+  <div class="centered">
+
+    <h1>Wallet</h1>
+    <hr>
+
+    <!-- WALLET INFO -->
+    <table>
+      <tr>
+        <th>Address:</th>
+        <td><input id="wallet-address" readonly></td>
+      </tr>
+      <tr>
+        <th>Balance (ETH):</th>
+        <td><input id="wallet-balance" readonly></td>
+      </tr>
+      <tr>
+        <th>Nonce:</th>
+        <td><input id="wallet-transaction-count" readonly></td>
+      </tr>
+    </table>
+
+    <div id="wallet-submit-refresh" class="submit">Refresh</div>
+
+    <hr>
+
+    <!-- SEND TRANSACTION -->
+    <h2>Send ETH</h2>
+    <table>
+      <tr>
+        <th>Recipient:</th>
+        <td><input id="wallet-send-target-address"></td>
+      </tr>
+      <tr>
+        <th>Amount (ETH):</th>
+        <td><input id="wallet-send-amount"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td>
+          <div id="wallet-submit-send" class="submit disable">
+            Send Transaction
+          </div>
+        </td>
+      </tr>
+    </table>
+
+    <hr>
+
+    <!-- EXPORT KEYSTORE -->
+    <h2>Export Keystore</h2>
+    <table>
+      <tr>
+        <th>Password:</th>
+        <td><input id="save-keystore-file-pwd" type="text"></td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><div id="save-keystore" class="submit">Export</div></td>
+      </tr>
+    </table>
+
+    <hr>
+
+    <!-- ACTIVITY -->
+    <h2>Transaction Activity</h2>
+    <div id="wallet-activity" class="activity"></div>
+
+  </div>
+</div>
+
+<script src="ethers-v4.min.js"></script>
+<script src="jquery.min.js"></script>
+<script src="page.js"></script>
+<script src="FileSaver.js"></script>
+<script src="app.js"></script>
+
+</body>
 </html>
