@@ -1,55 +1,72 @@
-# 以太坊网页钱包代码
+```markdown
+# Ethereum Web Wallet Code
 
+## Installation
 
-## 安装
-### 方法１
+### Method 1
 
-如果是clone 的代码直接使用：
-```
-> npm install
-```
+If using cloned code, simply run:
 
-安装依赖．
-
-###　方法２：
-
-如果是自己从头开始建立工程，可以使用以下方法：
+```bash
+npm install
 
 ```
+
+To install dependencies.
+
+### Method 2
+
+If building the project from scratch, use the following methods:
+
+```bash
 npm init
 npm install lite-server
-```
-
-安装openzeppelin-solidity:
 
 ```
-> npm install openzeppelin-solidity
+
+Install openzeppelin-solidity:
+
+```bash
+npm install openzeppelin-solidity
+
 ```
 
-## 部署
+## Deployment
 
-我这边是使用Geth作为节点, 大家也可以使用Ganache, 大家要注意网络配置和账号再部署和页面中保持一致.
+I am using **Geth** as the node here, but you can also use **Ganache**. Please note that network configuration and accounts must be consistent between the deployment and the web page.
 
-部署的时候进行解锁
+Unlock the account when deploying:
+
+```javascript
 personal.unlockAccount(eth.accounts[0],"");
 
 ```
-> truffle migrate
+
+Migrate:
+
+```bash
+truffle migrate
+
 ```
 
-## 启动Web服务
+## Start Web Service
 
-因为provider 是使用的本地的geth节点，因此需要先启动geth：
+Since the provider uses a local Geth node, you need to start Geth first:
 
-```
+```bash
 geth --datadir testNet --dev --rpc --rpccorsdomain "http://localhost:3000" console
-```
-
-当然provider 也可以在app.js 中按自己的要求修改，参考文档 https://docs.ethers.io/ethers.js/html/api-providers.html
-
-启动web程序：
 
 ```
-> npm run dev
+
+Of course, the provider can also be modified in `app.js` according to your requirements. Reference documentation: https://docs.ethers.io/ethers.js/html/api-providers.html
+
+Start the web program:
+
+```bash
+npm run dev
+
 ```
 
+```
+
+```
