@@ -1,0 +1,213 @@
+* {
+  box-sizing: border-box;
+}
+
+/* ================= BASE ================= */
+body {
+  margin: 0;
+  font-family: system-ui, sans-serif;
+  background: linear-gradient(135deg, #020617, #0f172a);
+  color: #e5e7eb;
+}
+
+/* ================= SCREEN WRAPPER ================= */
+.centerer {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;   /* ⬅ important */
+  padding: 60px 20px;
+}
+
+.centerer.hidden {
+  display: none;
+}
+
+/* ================= MAIN CARD ================= */
+.centered {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;            /* ⬅ real centering */
+  background: #020617;
+  padding: 26px;
+  border-radius: 18px;
+  box-shadow: 0 20px 70px rgba(0,0,0,.75);
+}
+
+/* ================= TEXT ================= */
+h1 {
+  color: #f97316;
+  margin-top: 0;
+}
+
+h2 {
+  color: #fb923c;
+  margin-top: 28px;
+}
+
+hr {
+  border: none;
+  height: 1px;
+  background: rgba(255,255,255,.1);
+  margin: 28px 0;
+}
+
+/* ================= TABLE ================= */
+table {
+  width: 100%;
+}
+
+th {
+  text-align: left;
+  color: #94a3b8;
+  padding-bottom: 12px;
+  width: 160px;
+}
+
+td {
+  padding-bottom: 12px;
+}
+
+/* ================= INPUTS ================= */
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: #e5e7eb;
+  font-size: 14px;
+}
+
+input::placeholder {
+  color: #64748b;
+}
+
+/* ================= FILE ================= */
+.file-wrapper {
+  position: relative;
+}
+
+.file-wrapper input[type="file"] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file {
+  border: 2px dashed #334155;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+}
+
+/* ================= BUTTONS ================= */
+.submit {
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  color: #020617;
+  padding: 14px;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.15s ease;
+}
+
+.submit:hover {
+  transform: translateY(-1px);
+}
+
+.submit.disable {
+  opacity: 0.45;
+}
+
+/* ================= ACTIVITY ================= */
+.activity {
+  margin-top: 18px;
+  padding: 14px;
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 12px;
+  font-family: monospace;
+  font-size: 13px;
+}
+
+/* ================= MODAL ================= */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.65);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.modal-backdrop.hidden {
+  display: none;
+}
+
+.modal {
+  background: #020617;
+  padding: 22px;
+  border-radius: 18px;
+  width: 420px;
+  max-width: calc(100vw - 32px);
+  box-shadow: 0 25px 80px rgba(0,0,0,0.85);
+}
+
+/* ================= MODAL CONTENT ================= */
+.modal h2 {
+  margin-top: 0;
+  color: #f97316;
+}
+
+.modal pre {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #e5e7eb;
+
+  /* 🔥 HASH FIX */
+  word-break: break-all;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+/* ================= MODAL INPUT ================= */
+#modal-input {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: 1px solid #1e293b;
+  background: #020617;
+  color: #e5e7eb;
+}
+
+#modal-input.hidden {
+  display: none;
+}
+
+/* ================= MODAL ACTIONS ================= */
+.modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.modal-actions button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #020617;
+  color: #e5e7eb;
+  cursor: pointer;
+}
+
+.modal-actions button.primary {
+  background: linear-gradient(135deg, #f97316, #fb923c);
+  color: #020617;
+  border: none;
+}
